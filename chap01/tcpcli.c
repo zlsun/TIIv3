@@ -9,11 +9,11 @@ int main(int argc, char *argv[])
     char reply[MAX_REPLY];
     int sockfd, n;
 
-    if (argc != 2)
+    if (argc > 2)
 #ifdef USE_TTCP
-        err_quit("usage: ttcpcli <IP of server>");
+        err_quit("usage: ttcpcli [<IP of server>]");
 #else
-        err_quit("usage: tcpcli <IP of server>");
+        err_quit("usage: tcpcli [<IP of server>]");
 #endif
 
     if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) < 0)
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     memset(&serv, 0, sizeof(serv));
     serv.sin_family = AF_INET;
-    serv.sin_addr.s_addr = inet_addr(argv[1]);
+    serv.sin_addr.s_addr = inet_addr(argc == 2 ? argv[1] : "127.0.0.1");
 #ifdef USE_TTCP
     serv.sin_port = htons(TTCP_SERV_PORT);
 #else

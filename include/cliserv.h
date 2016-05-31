@@ -23,7 +23,7 @@
 
 #define MAX_REQUEST 400
 #define MAX_REPLY 400
-#define MAX_LINE 1000
+#define MAX_LINE 1024
 
 #define UDP_SERV_PORT 7777
 #define TCP_SERV_PORT 8888

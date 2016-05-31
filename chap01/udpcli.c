@@ -9,15 +9,15 @@ int main(int argc, char *argv[])
     char reply[MAX_REPLY];
     int sockfd, n;
 
-    if (argc != 2)
-        err_quit("usage: udpcli <IP of server>");
+    if (argc > 2)
+        err_quit("usage: udpcli [<IP of server>]");
 
     if ((sockfd = socket(PF_INET, SOCK_DGRAM, 0)) < 0)
         err_sys("socket error");
 
     memset(&serv, 0, sizeof(serv));
     serv.sin_family = AF_INET;
-    serv.sin_addr.s_addr = inet_addr(argv[1]);
+    serv.sin_addr.s_addr = inet_addr(argc == 2 ? argv[1] : "127.0.0.1");
     serv.sin_port = htons(UDP_SERV_PORT);
 
     for (;;) {
